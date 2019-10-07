@@ -44,12 +44,12 @@
 					</div>
 				</li>
 
-				<li class="hover"><label class="drop-label" for="drop-wrap1"><img src="<?php echo $user->profile_image ?>"/></label>
+				<li class="hover"><label class="drop-label" for="drop-wrap1"><img src="<?php echo $user->profileImage ?>"/></label>
 				<input type="checkbox" id="drop-wrap1">
 				<div class="drop-wrap">
 					<div class="drop-inner">
 						<ul>
-							<li><a href="<?php echo $user->user_name ?>"><?php echo $user->user_name ?></a></li>
+							<li><a href="<?php echo $user->username ?>"><?php echo $user->username ?></a></li>
 							<li><a href="settings/account">Settings</a></li>
 							<li><a href="includes/logout.php">Log out</a></li>
 						</ul>
@@ -76,19 +76,19 @@
 			<div class="info-inner">
 				<div class="info-in-head">
 					<!-- PROFILE-COVER-IMAGE -->
-					<img src="<?php echo $user->profile_cover ?>"/>
+					<img src="<?php echo $user->profileCover ?>"/>
 				</div><!-- info in head end -->
 				<div class="info-in-body">
 					<div class="in-b-box">
 						<div class="in-b-img">
 						<!-- PROFILE-IMAGE -->
-							<img src="<?php echo $user->profile_image ?>"/>
+							<img src="<?php echo $user->profileImage ?>"/>
 						</div>
 					</div><!--  in b box end-->
 					<div class="info-body-name">
 						<div class="in-b-name">
-							<div><a href="<?php echo $user->user_name ?>"><?php echo $user->screen_name ?></a></div>
-							<span><small><a href="<?php echo $user->user_name ?>">@<?php echo $user->user_name ?></a></small></span>
+							<div><a href="<?php echo $user->username ?>"><?php echo $user->screenName ?></a></div>
+							<span><small><a href="<?php echo $user->username ?>">@<?php echo $user->username ?></a></small></span>
 						</div><!-- in b name end-->
 					</div><!-- info body name end-->
 				</div><!-- info in body end-->
@@ -137,7 +137,7 @@
 						 <div class="tweet-h-left">
 						 	<div class="tweet-h-img">
 						 	<!-- PROFILE-IMAGE -->
-						 		<img src="<?php echo $user->profile_image ?>"/>
+						 		<img src="<?php echo $user->profileImage ?>"/>
 						 	</div>
 						 </div>
 						 <div class="tweet-body">
