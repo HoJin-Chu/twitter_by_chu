@@ -1,4 +1,8 @@
 <?php
+
+// 나중에 에러메세지 끄기 error_reporting
+//php notice object of class stdclass could not be converted to int
+
   class User {
     protected $pdo;
     
@@ -55,7 +59,7 @@
     public function logout() {
       $_SESSION = array();
       session_destroy();
-      header('Location: ../index.php');
+      header('Location: '.BASE_URL.'index.php');
     }
 
     public function create($table, $fields = array()) {
@@ -116,6 +120,10 @@
       } else {
         return false;
       }
+    }
+
+    public function loggedIn() {
+      return (isset($_SESSION['user_id'])) ? true : false;
     }
 
     public function userIdByUsername($username) {
