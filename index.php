@@ -1,6 +1,9 @@
 <?php
   include 'core/init.php';
-
+  // is login = home = index
+  if(isset($_SESSION['user_id'])) {
+    header("Location: home.php");
+  }
 ?>
 
 <!--
@@ -51,7 +54,7 @@
             </div>
             <!-- Register Section -->
             <div class="signup-wrapper">
-              <?php include "includes/register.php" ?>
+              <?php include "includes/register_form.php" ?>
             </div>
           </div>
         </div>
