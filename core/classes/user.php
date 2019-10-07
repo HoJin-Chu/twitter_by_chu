@@ -45,7 +45,7 @@
     }
 
     public function userData($user_id) {
-      $stmt = $this->pdo->prepare("SELECT * FROM users WHERE `user_id` = :user_id");
+      $stmt = $this->pdo->prepare("SELECT * FROM `users` WHERE `user_id` = :user_id");
       $stmt->bindParam(":user_id", $user_id, PDO::PARAM_INT);
       $stmt->execute();
 
@@ -116,6 +116,14 @@
       } else {
         return false;
       }
+    }
+
+    public function userIdByUsername($username) {
+      $stmt = $this->pdo->prepare("SELECT `user_id` FROM `users` WHERE `username` = :username");
+      $stmt->bindParam(":username", $username, PDO::PARAM_STR);
+      $stmt->execute();
+      $user_id = $stmt->fetch(PDO::FETCH_OBJ);
+      return $user_id;
     }
   }
 ?>
