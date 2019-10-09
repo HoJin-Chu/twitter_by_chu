@@ -18,7 +18,8 @@
 
     // login
     public function login($email, $password) {
-      $stmt = $this->pdo->prepare("SELECT user_id FROM users WHERE email = :email AND password = :password");
+      $sql  = "SELECT `user_id` FROM `users` WHERE `email` = :email AND `password` = :password";
+      $stmt = $this->pdo->prepare($sql);
       $stmt->bindParam(":email", $email, PDO::PARAM_STR);
       $stmt->bindParam(":password", md5($password), PDO::PARAM_STR);
       $stmt->execute();
@@ -37,7 +38,7 @@
     // register
     public function register($email, $password, $screenName) {
       // $passHash = password_hash("password", PASSWORD_BCRYPT);
-      $sql = "INSERT INTO users (email, password, screenName, profileImage, profileCover) VALUES (:email, :password, :screenName, 'assets/images/defaultProfileImage.png', 'assets/images/defaultCoverImage.png')";
+      $sql  = "INSERT INTO `users` (`email`, `password`, `screenName`, `profileImage`, `profileCover`) VALUES (:email, :password, :screenName, 'assets/images/defaultProfileImage.png', 'assets/images/defaultCoverImage.png')";
       $stmt = $this->pdo->prepare($sql);
       $stmt->bindParam(":email", $email, PDO::PARAM_STR);
       $stmt->bindParam(":password", md5($password), PDO::PARAM_STR);
@@ -72,6 +73,7 @@
           $stmt->bindValue(':'.$key, $data);
         }
         $stmt->execute();
+        
         return $this->pdo->lastInsertId();
       }
     }
@@ -103,25 +105,24 @@
       $stmt->execute();
 
       $count = $stmt->rowCount();
-      if($count > 0) {
+      if($count > 0)
         return true;
-      } else {
+      else
         return false;
-      }
     }
 
     // validate email 
     public function checkEmail($email) {
-      $stmt = $this->pdo->prepare("SELECT `email` FROM `users` WHERE `email` = :email");
+      $sql  = "SELECT `email` FROM `users` WHERE `email` = :email";
+      $stmt = $this->pdo->prepare($sql);
       $stmt->bindParam(":email", $email, PDO::PARAM_STR);
       $stmt->execute();
 
       $count = $stmt->rowCount();
-      if($count > 0) {
+      if($count > 0)
         return true;
-      } else {
+      else
         return false;
-      }
     }
 
     public function loggedIn() {
@@ -129,22 +130,23 @@
     }
 
     public function userIdByUsername($username) {
-      $stmt = $this->pdo->prepare("SELECT `user_id` FROM `users` WHERE `username` = :username");
+      $sql  = "SELECT `user_id` FROM `users` WHERE `username` = :username";
+      $stmt = $this->pdo->prepare($sql);
       $stmt->bindParam(":username", $username, PDO::PARAM_STR);
       $stmt->execute();
+
       $user_id = $stmt->fetch(PDO::FETCH_OBJ);
       return $user_id;
     }
 
-    public function uploadImage($file)
-    {
+    public function uploadImage($file) {
       $filename = basename($file['name']);
-      $fileTmp = $file['tmp_name'];
+      $fileTmp  = $file['tmp_name'];
       $fileSize = $file['size'];
-      $error = $file['error'];
+      $error    = $file['error'];
 
-      $ext = explode('.', $filename);
-      $ext = strtolower(end($ext));
+      $ext         = explode('.', $filename);
+      $ext         = strtolower(end($ext));
       $allowed_ext = array('jpg', 'png', 'jpeg');
 
       if(in_array($ext, $allowed_ext) === true) {

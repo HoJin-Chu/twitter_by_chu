@@ -21,7 +21,6 @@
     <div class="front-img">
       <img src="assets/images/home.jpg"></img>
     </div>	
-
     <div class="wrapper">
       <div class="header-wrapper">
         <div class="nav-container">
