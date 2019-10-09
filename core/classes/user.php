@@ -16,6 +16,16 @@
       return $var;
     }
 
+    public function search($search) {
+      $sql = "SELECT `user_id`, `username`, `screenName`, `profileImage`, `profileCover` FROM `users` WHERE `username` LIKE ? OR `screenName` LIKE ?";
+      $stmt = $this->pdo->prepare($sql);
+      $stmt->bindValue(1, $search.'%', PDO::PARAM_STR);
+      $stmt->bindValue(2, $search.'%', PDO::PARAM_STR);
+      $stmt->execute();
+
+      return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
     // login
     public function login($email, $password) {
       $sql  = "SELECT `user_id` FROM `users` WHERE `email` = :email AND `password` = :password";
@@ -102,6 +112,19 @@
       $sql  = "SELECT `username` FROM `users` WHERE `username` = :username";
       $stmt = $this->pdo->prepare($sql);
       $stmt->bindParam(":username", $username, PDO::PARAM_STR);
+      $stmt->execute();
+
+      $count = $stmt->rowCount();
+      if($count > 0)
+        return true;
+      else
+        return false;
+    }
+
+    public function checkPassword($password) {
+      $sql  = "SELECT `password` FROM `users` WHERE `password` = :password";
+      $stmt = $this->pdo->prepare($sql);
+      $stmt->bindParam(":password", md5($password), PDO::PARAM_STR);
       $stmt->execute();
 
       $count = $stmt->rowCount();
