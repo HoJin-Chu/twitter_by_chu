@@ -5,6 +5,30 @@
   if($getFromUser->loggedIn() === false) {
     header('Location: index.php');
   }
+
+  if(isset($_POST['tweet'])) {
+    $status     = $getFromUser->checkInput($_POST['status']);
+    $tweetImage = '';
+
+    if(!empty($status) or !empty($_FILES['file']['name'][0])) {
+      if(!empty($_FILES['file']['name'][0])) {
+        $tweetImage = $getFromUser->uploadImage($_FILES['file']);
+      }
+
+      if(strlen($status) > 140) {
+        $error = "The text of your tweet is too long";
+      }
+      $getFromUser->create('tweets', array(
+        'status' => $status, 
+        'tweetBy' => $user_id, 
+        'tweetImage' => $tweetImage, 
+        'postedOn' => date('Y-m-d H:i:s')
+      ));
+      
+    } else {
+      $error = "Type or choose image to tweet";
+    }
+  }
 ?>
 
 <!DOCTYPE HTML> 
@@ -58,6 +82,7 @@
       </div><!-- header wrapper end -->
 
       <script type="text/javascript" src="assets/js/search.js"></script>
+      <script type="text/javascript" src="assets/js/hashtag.js"></script>
 
       <!---Inner wrapper-->
       <div class="inner-wrapper">
@@ -123,7 +148,9 @@
                       <form method="post" enctype="multipart/form-data">
                         <textarea class="status" name="status" placeholder="Type Something here!" rows="4" cols="50"></textarea>
                         <div class="hash-box">
-                          <ul></ul>
+                          <ul>
+                            <!-- ajax here -->
+                          </ul>
                         </div>
                         <div class="tweet-footer">
                           <div class="t-fo-left">
@@ -131,7 +158,9 @@
                               <input type="file" name="file" id="file"/>
                               <li>
                                 <label for="file"><i class="fa fa-camera" aria-hidden="true"></i></label>
-                                <span class="tweet-error"></span>
+                                <span class="tweet-error">
+                                  <?php if(isset($error)){echo $error;} else if(isset($imageError)){echo $imageError;} ?>
+                                </span>
                               </li>
                             </ul>
                           </div>
@@ -148,9 +177,10 @@
               
                 <!--Tweet SHOW WRAPPER-->
                 <div class="tweets">
-                  <!--TWEETS HERE-->
+                  <?php $getFromTweet->tweets(); ?>
                 </div>
                 <!--TWEETS SHOW WRAPPER-->
+
                 <div class="loading-div">
                   <img id="loader" src="assets/images/loading.svg" style="display: none;"/> 
                 </div>
