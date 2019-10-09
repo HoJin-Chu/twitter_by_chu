@@ -6,7 +6,8 @@
     }
 
     public function tweets() {
-      $sql = "SELECT * FROM `tweets`, `users` WHERE `tweetBy` = user_id";
+      $sql = "SELECT * FROM `tweets`, `users` 
+              WHERE `tweetBy` = user_id";
       $stmt = $this->pdo->prepare($sql);
       $stmt->execute();
       
@@ -74,6 +75,50 @@
           </div>
         </div>
         ';
+      }
+    }
+
+    public function getTrendByHash($hashtag) {
+      $sql = "SELECT * 
+              FROM `trends` 
+              WHERE `hashtag` 
+              LIKE :hashtag 
+              LIMIT 5";
+      $stmt = $this->pdo->prepare($sql);
+      $stmt->bindValue(':hashtag', $hashtag.'%');
+      $stmt->execute();
+
+      return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function getMention($mention) {
+      $sql = "SELECT user_id, `username`, `screenName`, `profileImage` 
+              FROM `users` 
+              WHERE `username` 
+              LIKE :mention 
+              OR `screenName` 
+              LIKE :mention 
+              LIMIT 5";
+      $stmt = $this->pdo->prepare($sql);
+      $stmt->bindValue(':mention', $mention.'%');
+      $stmt->execute();
+
+      return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function addTrend($hashtag) {
+      preg_match_all("/#+([a-zA-Z0-9_]+)/i", $hashtag, $matches);
+      if($matches) {
+        $result = array_values($matches[1]);
+      }
+
+      $sql = "INSERT INTO `trends` (`hashtag`, `createdOn`) 
+              VALUES (:hashtag, CURRENT_TIMESTAMP)";
+
+      foreach ($result as $trend) {
+        if($stmt = $this->pdo->prepare($sql)) {
+          $stmt->execute(array(':hashtag' => $trend));
+        }
       }
     }
   }
