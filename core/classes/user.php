@@ -17,7 +17,12 @@
     }
 
     public function search($search) {
-      $sql = "SELECT `user_id`, `username`, `screenName`, `profileImage`, `profileCover` FROM `users` WHERE `username` LIKE ? OR `screenName` LIKE ?";
+      $sql = "SELECT `user_id`, `username`, `screenName`, `profileImage`, `profileCover` 
+              FROM `users` 
+              WHERE `username` 
+              LIKE ? 
+              OR `screenName` 
+              LIKE ?";
       $stmt = $this->pdo->prepare($sql);
       $stmt->bindValue(1, $search.'%', PDO::PARAM_STR);
       $stmt->bindValue(2, $search.'%', PDO::PARAM_STR);
@@ -28,7 +33,10 @@
 
     // login
     public function login($email, $password) {
-      $sql  = "SELECT `user_id` FROM `users` WHERE `email` = :email AND `password` = :password";
+      $sql = "SELECT `user_id` 
+              FROM `users` 
+              WHERE `email` = :email 
+              AND `password` = :password";
       $stmt = $this->pdo->prepare($sql);
       $stmt->bindParam(":email", $email, PDO::PARAM_STR);
       $stmt->bindParam(":password", md5($password), PDO::PARAM_STR);
@@ -48,7 +56,8 @@
     // register
     public function register($email, $password, $screenName) {
       // $passHash = password_hash("password", PASSWORD_BCRYPT);
-      $sql  = "INSERT INTO `users` (`email`, `password`, `screenName`, `profileImage`, `profileCover`) VALUES (:email, :password, :screenName, 'assets/images/defaultProfileImage.png', 'assets/images/defaultCoverImage.png')";
+      $sql = "INSERT INTO `users` (`email`, `password`, `screenName`, `profileImage`, `profileCover`) 
+              VALUES (:email, :password, :screenName, 'assets/images/defaultProfileImage.png', 'assets/images/defaultCoverImage.png')";
       $stmt = $this->pdo->prepare($sql);
       $stmt->bindParam(":email", $email, PDO::PARAM_STR);
       $stmt->bindParam(":password", md5($password), PDO::PARAM_STR);
@@ -60,7 +69,9 @@
     }
 
     public function userData($user_id) {
-      $sql = "SELECT * FROM `users` WHERE `user_id` = :user_id";
+      $sql = "SELECT * 
+              FROM `users` 
+              WHERE `user_id` = :user_id";
       $stmt = $this->pdo->prepare($sql);
       $stmt->bindParam(":user_id", $user_id, PDO::PARAM_INT);
       $stmt->execute();
@@ -77,7 +88,8 @@
     public function create($table, $fields = array()) {
       $columns = implode(',', array_keys($fields));
       $values  = ':'.implode(', :', array_keys($fields));
-      $sql     = "INSERT INTO {$table} ({$columns}) VALUES ({$values})";
+      $sql     = "INSERT INTO {$table} ({$columns}) 
+                  VALUES ({$values})";
       if($stmt = $this->pdo->prepare($sql)) {
         foreach ($fields as $key => $data) {
           $stmt->bindValue(':'.$key, $data);
@@ -99,7 +111,9 @@
         }
         $i++;
       }
-      $sql = "UPDATE {$table} SET {$columns} WHERE `user_id` = {$user_id}";
+      $sql = "UPDATE {$table} 
+              SET {$columns} 
+              WHERE `user_id` = {$user_id}";
       if($stmt = $this->pdo->prepare($sql)) {
         foreach ($fields as $key => $value) {
           $stmt->bindValue(':'.$key, $value);
@@ -109,7 +123,9 @@
     }
 
     public function checkUsername($username) {
-      $sql  = "SELECT `username` FROM `users` WHERE `username` = :username";
+      $sql = "SELECT `username` 
+              FROM `users` 
+              WHERE `username` = :username";
       $stmt = $this->pdo->prepare($sql);
       $stmt->bindParam(":username", $username, PDO::PARAM_STR);
       $stmt->execute();
@@ -122,7 +138,9 @@
     }
 
     public function checkPassword($password) {
-      $sql  = "SELECT `password` FROM `users` WHERE `password` = :password";
+      $sql = "SELECT `password` 
+              FROM `users` 
+              WHERE `password` = :password";
       $stmt = $this->pdo->prepare($sql);
       $stmt->bindParam(":password", md5($password), PDO::PARAM_STR);
       $stmt->execute();
@@ -136,7 +154,9 @@
 
     // validate email 
     public function checkEmail($email) {
-      $sql  = "SELECT `email` FROM `users` WHERE `email` = :email";
+      $sql = "SELECT `email` 
+              FROM `users` 
+              WHERE `email` = :email";
       $stmt = $this->pdo->prepare($sql);
       $stmt->bindParam(":email", $email, PDO::PARAM_STR);
       $stmt->execute();
@@ -153,7 +173,9 @@
     }
 
     public function userIdByUsername($username) {
-      $sql  = "SELECT `user_id` FROM `users` WHERE `username` = :username";
+      $sql = "SELECT `user_id` 
+              FROM `users` 
+              WHERE `username` = :username";
       $stmt = $this->pdo->prepare($sql);
       $stmt->bindParam(":username", $username, PDO::PARAM_STR);
       $stmt->execute();
@@ -162,6 +184,7 @@
       return $user_id;
     }
 
+    # 파일 업로딩
     public function uploadImage($file) {
       $filename = basename($file['name']);
       $fileTmp  = $file['tmp_name'];
