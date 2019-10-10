@@ -6,7 +6,8 @@
     }
 
     public function tweets() {
-      $sql = "SELECT * FROM `tweets`, `users` 
+      $sql = "SELECT * 
+              FROM `tweets`, `users` 
               WHERE `tweetBy` = user_id";
       $stmt = $this->pdo->prepare($sql);
       $stmt->execute();
@@ -148,11 +149,15 @@
       $stmt->bindParam(":tweet_id", $tweet_id, PDO::PARAM_INT);
       $stmt->execute();
 
-      $this->create('likes', array(
+      $this->create('likes', 
+        array(
         'likeBy' => $user_id, 
         'likeOn' => $tweet_id
-        )
-      );
+      ));
+    }
+
+    public function likes($user_id, $tweet_id) {
+      
     }
   }
 ?>

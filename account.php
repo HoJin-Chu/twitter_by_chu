@@ -24,7 +24,11 @@
       } else if($user->email != $email and $getFromUser->checkEmail($email) === true) {
         $error['email'] = "Email already in use";
       } else {
-        $getFromUser->update('users', $user_id, array('username' => $username, 'email' => $email));
+        $getFromUser->update('users', $user_id, 
+          array(
+          'username' => $username, 
+          'email' => $email
+        ));
         header('Location: '.BASE_URL.'settings/account');
       }
 

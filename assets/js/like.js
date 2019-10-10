@@ -1,12 +1,16 @@
 $(() => {
   $(document).on('click', '.like-btn', function() {
-    var tweet_id = $(this).data('tweet')
-    var user_id  = $(this).data('user')
-    var counter  = $(this).find('.likesCounter')
-    var count    = counter.text()
-    var button   = $(this)
+    const tweet_id = $(this).data('tweet')
+    const user_id  = $(this).data('user')
+    const counter  = $(this).find('.likesCounter')
+    const button   = $(this)
+    let count      = counter.text()
 
-    $.post('http://localhost/twitter/core/ajax/like.php', {like: tweet_id, user_id: user_id}, () => {
+    $.post(
+      'http://localhost/twitter/core/ajax/like.php', {
+        like: tweet_id, 
+        user_id: user_id
+      }, () => {
       button.addClass('unlike-btn')
       button.removeClass('like_btn')
       count++

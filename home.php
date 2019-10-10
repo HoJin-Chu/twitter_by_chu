@@ -18,7 +18,8 @@
       if(strlen($status) > 140) {
         $error = "The text of your tweet is too long";
       }
-      $getFromUser->create('tweets', array(
+      $getFromUser->create('tweets', 
+        array(
         'status' => $status, 
         'tweetBy' => $user_id, 
         'tweetImage' => $tweetImage, 

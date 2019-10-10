@@ -1,7 +1,7 @@
 <?php
   // set Database variable information
-  $dsn = "mysql:host=localhost;dbname=twitter";
-  $db_user = "root";
+  $dsn         = "mysql:host=localhost;dbname=twitter";
+  $db_user     = "root";
   $db_password = "49600905";
 
   // Database PDO connection
