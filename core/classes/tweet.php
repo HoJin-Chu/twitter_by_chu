@@ -59,10 +59,18 @@
               <div class="t-show-footer">
                 <div class="t-s-f-right">
                   <ul> 
-                    <li><button><a href="#"><i class="fa fa-share" aria-hidden="true"></i></a></button></li>	
-                    <li><button><a href="#"><i class="fa fa-retweet" aria-hidden="true"></i></a></button></li>
-                    <li><button><a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a></button></li>
-                      <li>
+                    <li>
+                      <button><a href="#"><i class="fa fa-share" aria-hidden="true"></i></a></button>
+                    </li>	
+                    <li>
+                      <button><a href="#"><i class="fa fa-retweet" aria-hidden="true"></i></a></button
+                    </li>
+                    <li>
+                      <button class="like-btn" data-tweet="'.$tweet->tweetID.'" data-user="'.$tweet->tweetBy.'">
+                        <i class="fa fa-heart-o" aria-hidden="true"></i><span class="likesCounter"></span>
+                      </button>
+                    </li>
+                    <li>
                       <a href="#" class="more"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
                       <ul> 
                         <li><label class="deleteTweet">Delete Tweet</label></li>
@@ -107,7 +115,8 @@
     }
 
     public function addTrend($hashtag) {
-      preg_match_all("/#+([a-zA-Z0-9_]+)/i", $hashtag, $matches);
+      // 정규표현식
+      preg_match_all("/#+([a-zA-Z0-9_가-힣]+)/i", $hashtag, $matches);
       if($matches) {
         $result = array_values($matches[1]);
       }
@@ -123,11 +132,27 @@
     }
 
     public function getTweetLinks($tweet) {
+      // 정규표현식
       $tweet = preg_replace("/(https?:\/\/)([\w]+.)([\w\.]+)/", "<a href='$0' target='_blink'>$0</a>", $tweet);
       $tweet = preg_replace("/#([\w]+)/", "<a href='".BASE_URL."hashtag/$1'>$0</a>", $tweet);
       $tweet = preg_replace("/@([\w]+)/", "<a href='".BASE_URL."$1'>$0</a>", $tweet);
 
       return $tweet;
+    }
+
+    public function addLike($user_id, $tweet_id, $get_id) {
+      $sql = "UPDATE `tweets` 
+              SET `likesCount` = `likesCount` + 1 
+              WHERE `tweetID` = :tweet_id";
+      $stmt = $this->pdo->prepare($sql);
+      $stmt->bindParam(":tweet_id", $tweet_id, PDO::PARAM_INT);
+      $stmt->execute();
+
+      $this->create('likes', array(
+        'likeBy' => $user_id, 
+        'likeOn' => $tweet_id
+        )
+      );
     }
   }
 ?>

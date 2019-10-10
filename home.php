@@ -24,7 +24,8 @@
         'tweetImage' => $tweetImage, 
         'postedOn' => date('Y-m-d H:i:s')
       ));
-      preg_match_all("/#+([a-zA-Z0-9_]+)/i", $status, $hashtag);
+      // 정규표현식
+      preg_match_all("/#+([a-zA-Z0-9_가-힣]+)/i", $status, $hashtag);
       
       if(!empty($hashtag)) {
         $getFromTweet->addTrend($status);
@@ -191,6 +192,9 @@
                 </div>
                 <div class="popupTweet"></div>
                 <!--Tweet END WRAPER-->
+
+                <script src="assets/js/like.js"></script>
+
               </div><!-- in left wrap-->
             </div><!-- in center end -->
             <div class="in-right">

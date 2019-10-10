@@ -17,7 +17,7 @@
       
       if($user->username != $username and $getFromUser->checkUsername($username) === true) {
         $error['username'] = "The username is not available";
-      } else if(preg_match("/[^a-zA-Z0-9\!]", $username)) {
+      } else if(preg_match("/[^a-zA-Z0-9\!]", $username)) { // 정규표현식
         $error['username'] = "Only characters and numbers allowed";
       } else if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $error['email'] = "invaild email format";
