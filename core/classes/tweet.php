@@ -65,7 +65,10 @@
                       <button><a href="#"><i class="fa fa-share" aria-hidden="true"></i></a></button>
                     </li>	
                     <li>
-                      <button><a href="#"><i class="fa fa-retweet" aria-hidden="true"></i></a></button
+                      <button class="retweet" data-tweet="'.$tweet->tweetID.'" data-user="'.$tweet->tweetBy.'">
+                        <i class="fa fa-retweet" aria-hidden="true"></i>
+                        <span class="retweetsCount"></span>
+                      </button>
                     </li>
                     <li>
                       '.(($likes['likeOn'] === $tweet->tweetID) ? 
@@ -151,6 +154,18 @@
       return $tweet;
     }
 
+    public function getPopupTweet($tweet_id) {
+      $sql = "SELECT * 
+              FROM `tweets`, `users`
+              WHERE `tweetID` = :tweet_id 
+              AND `tweetBy` = `user_id`";
+      $stmt = $this->pdo->prepare($sql);
+      $stmt->bindParam(":tweet_id", $tweet_id, PDO::PARAM_INT);
+      $stmt->execute();
+
+      return $stmt->fetch(PDO::FETCH_OBJ);
+    }
+
     public function addLike($user_id, $tweet_id, $get_id) {
       $sql = "UPDATE `tweets` 
               SET `likesCount` = `likesCount` + 1 
@@ -164,6 +179,23 @@
         'likeBy' => $user_id, 
         'likeOn' => $tweet_id
       ));
+    }
+
+    public function unLike($user_id, $tweet_id, $get_id) {
+      $sql = "UPDATE `tweets` 
+              SET `likesCount` = `likesCount` - 1 
+              WHERE `tweetID` = :tweet_id";
+      $stmt = $this->pdo->prepare($sql);
+      $stmt->bindParam(":tweet_id", $tweet_id, PDO::PARAM_INT);
+      $stmt->execute();
+
+      $secondSql = "DELETE FROM `likes` 
+                    WHERE `likeBy` = :user_id 
+                    AND `likeOn` = :tweet_id";
+      $stmt = $this->pdo->prepare($secondSql);
+      $stmt->bindParam(":user_id", $user_id, PDO::PARAM_INT);
+      $stmt->bindParam(":tweet_id", $tweet_id, PDO::PARAM_INT);
+      $stmt->execute();
     }
 
     public function likes($user_id, $tweet_id) {

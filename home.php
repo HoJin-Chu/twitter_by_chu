@@ -41,7 +41,7 @@
 <!DOCTYPE HTML> 
  <html>
 	<head>
-		<title>Tweety</title>
+		<title>트위터</title>
 		  <meta charset="UTF-8" />
 		  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css"/>  
  	  	  <link rel="stylesheet" href="assets/css/style-complete.css"/> 
@@ -191,10 +191,13 @@
                 <div class="loading-div">
                   <img id="loader" src="assets/images/loading.svg" style="display: none;"/> 
                 </div>
-                <div class="popupTweet"></div>
+                <div class="popupTweet">
+                  <!-- retweet ajax here -->
+                </div>
                 <!--Tweet END WRAPER-->
 
                 <script src="assets/js/like.js"></script>
+                <script src="assets/js/retweet.js"></script>
 
               </div><!-- in left wrap-->
             </div><!-- in center end -->
