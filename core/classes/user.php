@@ -17,7 +17,8 @@
     }
 
     public function search($search) {
-      $sql = "SELECT `user_id`, `username`, `screenName`, `profileImage`, `profileCover` 
+      $sql = "SELECT `user_id`, `username`, `screenName`, 
+                     `profileImage`, `profileCover` 
               FROM `users` 
               WHERE `username` 
               LIKE ? 
@@ -56,8 +57,12 @@
     // register
     public function register($email, $password, $screenName) {
       // $passHash = password_hash("password", PASSWORD_BCRYPT);
-      $sql = "INSERT INTO `users` (`email`, `password`, `screenName`, `profileImage`, `profileCover`) 
-              VALUES (:email, :password, :screenName, 'assets/images/defaultProfileImage.png', 'assets/images/defaultCoverImage.png')";
+      $sql = "INSERT INTO `users` 
+              (`email`, `password`, `screenName`, 
+              `profileImage`, `profileCover`) 
+              VALUES (:email, :password, :screenName, 
+                      'assets/images/defaultProfileImage.png', 
+                      'assets/images/defaultCoverImage.png')";
       $stmt = $this->pdo->prepare($sql);
       $stmt->bindParam(":email", $email, PDO::PARAM_STR);
       $stmt->bindParam(":password", md5($password), PDO::PARAM_STR);
