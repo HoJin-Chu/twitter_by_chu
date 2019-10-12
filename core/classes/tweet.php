@@ -36,79 +36,81 @@
                 </div>
               </div>' : '').'
 
-              '.((!empty($tweet->retweetMsg) && $tweet->tweetID == $retweet['tweetID'] OR $tweet->retweetID > 0) ? 
+            '.((!empty($tweet->retweetMsg) && $tweet->tweetID == $retweet['tweetID'] OR $tweet->retweetID > 0) ? 
 
               '<div class="t-show-head">
-              <div class="t-show-img">
-                <img src="'.BASE_URL.$user->profileImage.'"/>
-              </div>
-              <div class="t-s-head-content">
-                <div class="t-h-c-name">
-                  <span><a href="'.BASE_URL.$user->username.'">'.$user->screenName.'</a></span>
-                  <span>@'.$user->username.'</span>
-                  <span>'.$retweet['postedOn'].' </span>
-                </div>
-                <div class="t-h-c-dis">
-                  '.$this->getTweetLinks($tweet->retweetMsg).'
-                </div>
-              </div>
-            </div>
-            <div class="t-s-b-inner">
-              <div class="t-s-b-inner-in">
-                <div class="retweet-t-s-b-inner">
-                '.((!empty($tweet->tweetImage)) ? 
-
-                  '<div class="retweet-t-s-b-inner-left">
-                    <img src="'.BASE_URL.$tweet->tweetImage.'"/>	
-                  </div>' : '').'
-
-                  <div class="retweet-t-s-b-inner-right">
-                    <div class="t-h-c-name">
-                      <span><a href="'.BASE_URL.$tweet->username.'">'.$tweet->screenName.'</a></span>
-                      <span>@'.$tweet->username.'</span>
-                      <span>'.$tweet->postedOn.'</span>
-                    </div>
-                    <div class="retweet-t-s-b-inner-right-text">		
-                      '.$tweet->status.'
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>' : 
-            
-            '<div class="t-show-popup">
-              <div class="t-show-head">
                 <div class="t-show-img">
-                  <img src="'.$tweet->profileImage.'"/>
+                  <img src="'.BASE_URL.$user->profileImage.'"/>
                 </div>
                 <div class="t-s-head-content">
                   <div class="t-h-c-name">
-                    <span><a href="'.$tweet->username.'">'.$tweet->screenName.'</a></span>
-                    <span>@'.$tweet->username.'</span>
-                    <span>'.$tweet->postedOn.'</span>
+                    <span><a href="'.BASE_URL.$user->username.'">'.$user->screenName.'</a></span>
+                    <span>@'.$user->username.'</span>
+                    <span>'.$retweet['postedOn'].' </span>
                   </div>
                   <div class="t-h-c-dis">
-                    '.$this->getTweetLinks($tweet->status).'
-                  </div>
-                </div>
-              </div>'.
-              ((!empty($tweet->tweetImage)) ?  
-
-              '<!--tweet show head end-->
-              <div class="t-show-body">
-                <div class="t-s-b-inner">
-                  <div class="t-s-b-inner-in">
-                    <img src="'.$tweet->tweetImage.'" class="imagePopup"/>
+                    '.$this->getTweetLinks($tweet->retweetMsg).'
                   </div>
                 </div>
               </div>
-              <!--tweet show body end-->' : '').'</div>').'
+              <div class="t-s-b-inner">
+                <div class="t-s-b-inner-in">
+                  <div class="retweet-t-s-b-inner">
+                  '.((!empty($tweet->tweetImage)) ? 
+
+                    '<div class="retweet-t-s-b-inner-left">
+                      <img src="'.BASE_URL.$tweet->tweetImage.'"/>	
+                    </div>' : '').'
+
+                    <div class="retweet-t-s-b-inner-right">
+                      <div class="t-h-c-name">
+                        <span><a href="'.BASE_URL.$tweet->username.'">'.$tweet->screenName.'</a></span>
+                        <span>@'.$tweet->username.'</span>
+                        <span>'.$tweet->postedOn.'</span>
+                      </div>
+                      <div class="retweet-t-s-b-inner-right-text">		
+                        '.$tweet->status.'
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>' : 
+              
+              '<div class="t-show-popup" data-tweet="'.$tweet->tweetID.'">
+                <div class="t-show-head">
+                  <div class="t-show-img">
+                    <img src="'.$tweet->profileImage.'"/>
+                  </div>
+                  <div class="t-s-head-content">
+                    <div class="t-h-c-name">
+                      <span><a href="'.$tweet->username.'">'.$tweet->screenName.'</a></span>
+                      <span>@'.$tweet->username.'</span>
+                      <span>'.$tweet->postedOn.'</span>
+                    </div>
+                    <div class="t-h-c-dis">
+                      '.$this->getTweetLinks($tweet->status).'
+                    </div>
+                  </div>
+                </div>'.
+                ((!empty($tweet->tweetImage)) ?  
+
+                '<!--tweet show head end-->
+                <div class="t-show-body">
+                  <div class="t-s-b-inner">
+                    <div class="t-s-b-inner-in">
+                      <img src="'.$tweet->tweetImage.'" class="imagePopup"/>
+                    </div>
+                  </div>
+                </div>
+                <!--tweet show body end-->' : '')
+              
+            .'</div>').'
 
               <div class="t-show-footer">
                 <div class="t-s-f-right">
                   <ul> 
                     <li>
-                      <button><a href="#"><i class="fa fa-share" aria-hidden="true"></i></a></button>
+                      <button><i class="fa fa-share" aria-hidden="true"></i></button>
                     </li>	
                     <li>
                       '.(($tweet->tweetID === $retweet['retweetID']) ? 
