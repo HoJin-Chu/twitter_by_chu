@@ -42,19 +42,23 @@
 
 <form method="post">
   <div class="signup-div"> 
-    <h3>Sign up </h3>
-    <ul>
-      <li><input type="text" name="screenName" placeholder="Full Name"/></li>
-      <li><input type="email" name="email" placeholder="Email"/></li>
-      <li><input type="password" name="password" placeholder="Password"/></li>
-      <li><input type="submit" name="register" Value="Signup for Twitter"></li>
-    </ul>
+    <div>
+      <input type="text" class="form-control mt-2" name="screenName" placeholder="Full Name"/>
+    </div>
+    <div>
+      <input type="email" class="form-control mt-2" name="email" placeholder="휴대폰번호 또는 이메일주소"/>
+    </div>
+    <div>
+      <input type="password" class="form-control mt-2" name="password" placeholder="비밀번호"/>
+    </div>
+    <div>
+      <input type="submit" class="form-control btn-primary mt-3" name="register" Value="회원가입">
+    </div>
     <?php
       if(isset($error)) {
         echo '
-        <li class="error-li">
-          <div class="span-fp-error">'.$error.'</div>
-        </li> ';
+          <div style="padding:10px; color:#DD0000;">'.$error.'</div>
+        ';
       }
     ?>
   </div>

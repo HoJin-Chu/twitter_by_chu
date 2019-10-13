@@ -1,0 +1,40 @@
+/*------- 전체 틀 -------*/
+ul {
+  list-style:none;
+}
+.container_height {
+  height: 100%;
+}
+
+/*------- 트위터 이미지 -------*/
+.first_background {
+  background-image: url('../images/home.png');
+  background-size: cover;
+}
+
+/*------- 왼쪽 화면 -------*/
+.intro {
+  width: 70%;
+  margin:0 auto;
+  margin-top: 250px;
+  color: white;
+}
+.intro li {
+  padding: 20px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/*------- 오른쪽 화면(로그인) -------*/
+.login-div {
+  padding: 30px;
+}
+
+/*------- 오른쪽 화면(회원가입) -------*/
+.card-title {
+  font-weight: bold;
+}
+.register_form {
+  width:60%; 
+  margin:0 auto;
+}

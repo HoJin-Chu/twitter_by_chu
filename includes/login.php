@@ -9,35 +9,34 @@
 
       // check email validate
       if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $error = "Invalid format";
+        $error = "형식이 맞지 않습니다.";
       }
       else{
         if($getFromUser->login($email, $password) === false) {
-          $error = "The email or password is incorret";
+          $error = "아이디 또는 비밀번호가 없습니다.";
         }
       }
 
     } else {
-      $error = "Please enter username and password";
+      $error = "아이디와 비밀번호를 모두 입력하세요.";
     }
   }
 ?>
 
 <div class="login-div">
-  <form method="post"> 
-    <ul>
-      <li><input type="text" name="email" placeholder="Please enter your Email here"/></li>
-      <li><input type="password" name="password" placeholder="password"/><input type="submit" name="login" value="Log in"/></li>
-      <li><input type="checkbox" Value="Remember me">Remember me</li>
-    </ul>
-    <?php 
-      if(isset($error)) {
-        echo '
-        <li class="error-li">
-          <div class="span-fp-error">'.$error.'</div>
-        </li>
-        ';
-      }
-    ?>
+  <form method="post" class="form-inline pa-4"> 
+    <div style="margin:0 auto;">
+      <input type="text" class="form-control mr-3" name="email" placeholder="휴대폰번호 또는 이메일주소">
+      <input type="password" class="form-control mr-3" name="password" placeholder="비밀번호">
+      <!-- <input type="checkbox" Value="Remember me">아이디 저장 -->
+      <input type="submit" class="btn btn-outline-primary" name="login" value="로그인">
+      <?php 
+        if(isset($error)) {
+          echo '
+            <div style="padding:10px; color:#DD0000;">'.$error.'</div>
+          ';
+        }
+      ?>
+    </div>
 	</form>
 </div>
