@@ -30,6 +30,8 @@
           <meta charset="UTF-8" />
           <link rel="stylesheet" href="assets/css/font/css/font-awesome.css"/>
           <link rel="stylesheet" href="../assets/css/style-complete.css"/>
+          <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+          <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
         </head>
         <body>
           <div class="wrapper">
@@ -51,8 +53,8 @@
                   <div class="step-wrapper">
                     <div class="step-container">
                       <form method="post">
-                        <h2>Choose a Username</h2>
-                        <h4>Don't worry, you can always change it later.</h4>
+                        <h2>Username을 설정해주세요</h2>
+                        <h4>나중에 언제든지 바꿀 수 있으니 걱정하지 마세요.</h4>
                         <div>
                           <input type="text" name="username" placeholder="Username"/>
                         </div>
@@ -71,12 +73,14 @@
                 <?php if($_GET['step'] == '2') {?>
                   <div class='lets-wrapper'>
                     <div class='step-letsgo'>
-                      <h2>We're glad you're here, <?php echo $user->screenName; ?></h2>
-                      <p>Tweety is a constantly updating stream of the coolest, most important news, media, sports, TV, conversations and more--all tailored just for you.</p>
+                      <h2>반갑습니다! <?php echo $user->screenName; ?>님</h2>
+                      <p>트위터는 가장 멋지고, 가장 중요한 뉴스, 미디어, 스포츠, TV, 대화 등을 지속적으로 업데이트하는 소셜 네트워크 서비스입니다.</p>
                       <br/>
-                      <p>Tell us about all the stuff you love and we'll help you get set up.</p>
+                      <p>당신이 느끼고 개선해야할 점이나 좋은점과 같은 모든 것에 대해 문의주시면 준비하겠습니다 !</p>
                       <span>
-                        <a href='../home.php' class='backButton'>Let's go!</a>
+                        <a href='../home.php' class='backButton'>
+                          <button class="btn btn-block btn-primary">시작하기</button>
+                        </a>
                       </span>
                     </div>
                   </div>

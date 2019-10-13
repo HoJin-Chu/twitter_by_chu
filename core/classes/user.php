@@ -34,13 +34,14 @@
 
     // login
     public function login($email, $password) {
+      $passHash = md5($password);
       $sql = "SELECT `user_id` 
               FROM `users` 
               WHERE `email` = :email 
               AND `password` = :password";
       $stmt = $this->pdo->prepare($sql);
       $stmt->bindParam(":email", $email, PDO::PARAM_STR);
-      $stmt->bindParam(":password", md5($password), PDO::PARAM_STR);
+      $stmt->bindParam(":password", $passHash, PDO::PARAM_STR);
       $stmt->execute();
 
       $user  = $stmt->fetch(PDO::FETCH_OBJ);
