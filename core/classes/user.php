@@ -128,6 +128,24 @@
       }
     }
 
+    public function delete($table, $array) {
+      $sql = "DELETE FROM `{$table}`";
+      $where = " WHERE ";
+      
+      foreach ($array as $name => $value) {
+        $sql .= "{$where} `{$name}` = :{$name}";
+        $where = " AND ";
+      }
+
+      if($stmt = $this->pdo->prepare($sql)) {
+        foreach ($array as $name => $value) {
+          $stmt->bindValue(':'.$name, $value);
+        } 
+        
+        $stmt->execute();
+      }
+    }
+
     public function checkUsername($username) {
       $sql = "SELECT `username` 
               FROM `users` 

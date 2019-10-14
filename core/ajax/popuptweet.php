@@ -153,7 +153,7 @@
               <img src="<?php echo BASE_URL.$user->profileImage; ?>"/>
             </div>
             <div class="tweet-show-popup-footer-input-right">
-              <input id="commentField" type="text" data-tweet="<?php $tweet->tweetID; ?>"  name="comment"  placeholder="Reply to @<?php $tweet->username; ?>">
+              <input id="commentField" type="text" data-tweet="<?php $tweet->tweetID; ?>"  name="comment" placeholder="Reply to @<?php echo $tweet->username; ?>">
             </div>
           </div>
           <div class="tweet-footer">
@@ -169,7 +169,6 @@
             </div>
             <div class="t-fo-right">
               <input type="submit" id="postComment" value="Tweet">
-              <script src="<?php BASE_URL; ?>assets/js/comment.js"></script>
             </div>
           </div>
         </div><!--tweet-show-popup-footer-input-wrap end-->
@@ -201,14 +200,28 @@
                       </div>
                       <div class="tweet-show-popup-footer-menu">
                         <ul>
-                          <li><button><i class="fa fa-share" aria-hidden="true"></i></button></li>
-                          <li><a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a></li>
                           <li>
-                          <a href="#" class="more"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
-                          <ul> 
-                            <li><label class="deleteTweet">Delete Tweet</label></li>
-                          </ul>
+                            <button>
+                              <i class="fa fa-share" aria-hidden="true"></i>
+                            </button>
                           </li>
+                          <li>
+                            <a href="#">
+                              <i class="fa fa-heart-o" aria-hidden="true"></i>
+                            </a>
+                          </li>
+                          '.(($comment->commentBy === $user_id) ? '
+                          <li>
+                            <a href="#" class="more"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
+                            <ul> 
+                              <li>
+                                <label 
+                                class="deleteComment" data-tweet="'.$tweet->tweetID.'" data-comment="'.$comment->commentID.'">
+                                Delete Tweet
+                                </label>
+                              </li>
+                            </ul>
+                          </li>' : '').'
                         </ul>
                       </div>
                     </div>

@@ -40,14 +40,28 @@
                 </div>
                 <div class="tweet-show-popup-footer-menu">
                   <ul>
-                    <li><button><i class="fa fa-share" aria-hidden="true"></i></button></li>
-                    <li><a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a></li>
                     <li>
-                    <a href="#" class="more"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
-                    <ul> 
-                      <li><label class="deleteTweet">Delete Tweet</label></li>
-                    </ul>
+                      <button>
+                        <i class="fa fa-share" aria-hidden="true"></i>
+                      </button>
                     </li>
+                    <li>
+                      <a href="#">
+                        <i class="fa fa-heart-o" aria-hidden="true"></i>
+                      </a>
+                    </li>
+                    '.(($comment->commentBy === $user_id) ? '
+                    <li>
+                      <a href="#" class="more"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
+                      <ul> 
+                        <li>
+                          <label 
+                          class="deleteComment" data-tweet="'.$tweet->tweetID.'" data-comment="'.$comment->commentID.'">
+                          Delete Tweet
+                          </label>
+                        </li>
+                      </ul>
+                    </li>' : '').'
                   </ul>
                 </div>
               </div>
