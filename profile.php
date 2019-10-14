@@ -83,7 +83,10 @@
           <div class="profile-navigation">
             <ul>
               <li>
-                <div class="n-head">TWEETS</div><div class="n-bottom">0</div>
+                <div class="n-head">TWEETS</div>
+                <div class="n-bottom">
+                  <?php $getFromTweet->countTweets($user_id); ?>
+                </div>
               </li>
               <li>
                 <a href="<?php echo BASE_URL.$profileData->username; ?>/following">
@@ -101,7 +104,10 @@
               </li>
               <li>
                 <a href="#">
-                  <div class="n-head">LIKES</div><div class="n-bottom">0</div>
+                  <div class="n-head">LIKES</div>
+                  <div class="n-bottom">
+                    <?php $getFromTweet->countLikes($user_id); ?>
+                  </div>
                 </a>
               </li>
             </ul>

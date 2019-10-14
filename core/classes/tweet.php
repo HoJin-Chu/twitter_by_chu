@@ -46,7 +46,7 @@
                     <div class="t-h-c-name">
                       <span><a href="'.BASE_URL.$user->username.'">'.$user->screenName.'</a></span>
                       <span>@'.$user->username.'</span>
-                      <span>'.$retweet['postedOn'].' </span>
+                      <span>'.$this->timeAgo($retweet['postedOn']).' </span>
                     </div>
                     <div class="t-h-c-dis">
                       '.$this->getTweetLinks($tweet->retweetMsg).'
@@ -66,7 +66,7 @@
                         <div class="t-h-c-name">
                           <span><a href="'.BASE_URL.$tweet->username.'">'.$tweet->screenName.'</a></span>
                           <span>@'.$tweet->username.'</span>
-                          <span>'.$tweet->postedOn.'</span>
+                          <span>'.$this->timeAgo($tweet->postedOn).'</span>
                         </div>
                         <div class="retweet-t-s-b-inner-right-text">		
                           '.$tweet->status.'
@@ -86,7 +86,7 @@
                     <div class="t-h-c-name">
                       <span><a href="'.$tweet->username.'">'.$tweet->screenName.'</a></span>
                       <span>@'.$tweet->username.'</span>
-                      <span>'.$tweet->postedOn.'</span>
+                      <span>'.$this->timeAgo($tweet->postedOn).'</span>
                     </div>
                     <div class="t-h-c-dis">
                       '.$this->getTweetLinks($tweet->status).'
@@ -163,6 +163,51 @@
         </div>
         ';
       }
+    }
+
+    public function addLike($user_id, $tweet_id, $get_id) {
+      $sql = "UPDATE `tweets` 
+              SET `likesCount` = `likesCount` + 1 
+              WHERE `tweetID` = :tweet_id";
+      $stmt = $this->pdo->prepare($sql);
+      $stmt->bindParam(":tweet_id", $tweet_id, PDO::PARAM_INT);
+      $stmt->execute();
+
+      $this->create('likes', 
+        array(
+        'likeBy' => $user_id, 
+        'likeOn' => $tweet_id
+      ));
+    }
+
+    public function unLike($user_id, $tweet_id, $get_id) {
+      $sql = "UPDATE `tweets` 
+              SET `likesCount` = `likesCount` - 1 
+              WHERE `tweetID` = :tweet_id";
+      $stmt = $this->pdo->prepare($sql);
+      $stmt->bindParam(":tweet_id", $tweet_id, PDO::PARAM_INT);
+      $stmt->execute();
+
+      $secondSql = "DELETE FROM `likes` 
+                    WHERE `likeBy` = :user_id 
+                    AND `likeOn` = :tweet_id";
+      $stmt = $this->pdo->prepare($secondSql);
+      $stmt->bindParam(":user_id", $user_id, PDO::PARAM_INT);
+      $stmt->bindParam(":tweet_id", $tweet_id, PDO::PARAM_INT);
+      $stmt->execute();
+    }
+
+    public function likes($user_id, $tweet_id) {
+      $sql = "SELECT *
+              FROM `likes`
+              WHERE `likeBy` = :user_id
+              AND `likeOn` = :tweet_id";
+      $stmt = $this->pdo->prepare($sql);
+      $stmt->bindParam(":user_id", $user_id, PDO::PARAM_INT);
+      $stmt->bindParam(":tweet_id", $tweet_id, PDO::PARAM_INT);
+      $stmt->execute();
+
+      return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     public function getTrendByHash($hashtag) {
@@ -282,49 +327,32 @@
       return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public function addLike($user_id, $tweet_id, $get_id) {
-      $sql = "UPDATE `tweets` 
-              SET `likesCount` = `likesCount` + 1 
-              WHERE `tweetID` = :tweet_id";
+    public function countTweets($user_id) {
+      $sql = "SELECT COUNT(`tweetID`) 
+              AS `totalTweets` 
+              FROM `tweets` 
+              WHERE `tweetBy` = :user_id 
+              AND `retweetID` = 0 
+              OR `retweetBy` = :user_id";
       $stmt = $this->pdo->prepare($sql);
-      $stmt->bindParam(":tweet_id", $tweet_id, PDO::PARAM_INT);
+      $stmt->bindParam("user_id", $user_id, PDO::PARAM_INT);
       $stmt->execute();
 
-      $this->create('likes', 
-        array(
-        'likeBy' => $user_id, 
-        'likeOn' => $tweet_id
-      ));
+      $count = $stmt->fetch(PDO::FETCH_OBJ);
+      echo $count->totalTweets;
     }
 
-    public function unLike($user_id, $tweet_id, $get_id) {
-      $sql = "UPDATE `tweets` 
-              SET `likesCount` = `likesCount` - 1 
-              WHERE `tweetID` = :tweet_id";
-      $stmt = $this->pdo->prepare($sql);
-      $stmt->bindParam(":tweet_id", $tweet_id, PDO::PARAM_INT);
-      $stmt->execute();
-
-      $secondSql = "DELETE FROM `likes` 
-                    WHERE `likeBy` = :user_id 
-                    AND `likeOn` = :tweet_id";
-      $stmt = $this->pdo->prepare($secondSql);
-      $stmt->bindParam(":user_id", $user_id, PDO::PARAM_INT);
-      $stmt->bindParam(":tweet_id", $tweet_id, PDO::PARAM_INT);
-      $stmt->execute();
-    }
-
-    public function likes($user_id, $tweet_id) {
-      $sql = "SELECT *
-              FROM `likes`
-              WHERE `likeBy` = :user_id
-              AND `likeOn` = :tweet_id";
+    public function countLikes($user_id) {
+      $sql = "SELECT COUNT(`likeID`) 
+              AS `totalLikes` 
+              FROM `likes` 
+              WHERE `likeBy` = :user_id";
       $stmt = $this->pdo->prepare($sql);
       $stmt->bindParam(":user_id", $user_id, PDO::PARAM_INT);
-      $stmt->bindParam(":tweet_id", $tweet_id, PDO::PARAM_INT);
       $stmt->execute();
 
-      return $stmt->fetch(PDO::FETCH_ASSOC);
+      $count = $stmt->fetch(PDO::FETCH_OBJ);
+      echo $count->totalLikes;
     }
   }
 ?>
