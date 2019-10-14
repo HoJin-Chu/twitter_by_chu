@@ -141,12 +141,20 @@
                       </button>'
                     ).'
                     </li>
+                    '.(($tweet->tweetBy === $user_id) ? '
                     <li>
-                      <a href="#" class="more"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
+                      <a href="#" class="more">
+                        <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+                      </a>
                       <ul> 
-                        <li><label class="deleteTweet">Delete Tweet</label></li>
+                        <li>
+                          <label 
+                          class="deleteTweet" data-tweet="'.$tweet->tweetID.'">
+                          Delete Tweet
+                          </label>
+                        </li>
                       </ul>
-                    </li>
+                    </li>' : '').'
                   </ul>
                 </div>
               </div>
