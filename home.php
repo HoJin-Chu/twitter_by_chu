@@ -189,7 +189,7 @@
                 <!--TWEETS SHOW WRAPPER-->
 
                 <div class="loading-div">
-                  <img id="loader" src="assets/images/loading.svg" style="display: none;"/> 
+                  <img id="loader" src="assets/images/loading.svg" style="display: none;"/>
                 </div>
                 <div class="popupTweet">
                   <!-- retweet ajax here -->
@@ -201,6 +201,7 @@
                 <script src="assets/js/popuptweets.js"></script>
                 <script src="assets/js/delete.js"></script>
                 <script src="assets/js/comment.js"></script>
+                <script src="assets/js/popupForm.js"></script>
 
               </div><!-- in left wrap-->
             </div><!-- in center end -->

@@ -6,10 +6,6 @@
   }
 ?>
 
-<!--
-   This template created by Meralesson.com 
-   This template only use for educational purpose 
--->
 <html>
 	<head>
 		<title>트위터</title>
