@@ -223,7 +223,7 @@
         if($error === 0) {
           if($fileSize <= 209272152) {
             $fileRoot = 'users/' . $filename;
-            move_uploaded_file($fileTmp, $fileRoot);
+            move_uploaded_file($fileTmp, $_SERVER['DOCUMENT_ROOT'].'/twitter/'.$fileRoot);
             return $fileRoot;
           } else {
             $GLOBALS['imageError'] = "The file size is too large";
