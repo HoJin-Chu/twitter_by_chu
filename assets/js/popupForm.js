@@ -35,6 +35,7 @@ $(() => {
           $('.error-banner').hide().slideDown(300).delay(5000).slideUp(300)
           $('.popup-tweet-wrap').hide()
         }
+        
       },
       cache: false,
       contentType: false,
