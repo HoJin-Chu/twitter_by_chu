@@ -186,7 +186,7 @@
               
                 <!--Tweet SHOW WRAPPER-->
                 <div class="tweets">
-                  <?php $getFromTweet->tweets($user_id); ?>
+                  <?php $getFromTweet->tweets($user_id, 4); ?>
                 </div>
                 <!--TWEETS SHOW WRAPPER-->
 
@@ -204,6 +204,7 @@
                 <script src="assets/js/delete.js"></script>
                 <script src="assets/js/comment.js"></script>
                 <script src="assets/js/popupForm.js"></script>
+                <script src="assets/js/fetch.js"></script>
 
               </div><!-- in left wrap-->
             </div><!-- in center end -->

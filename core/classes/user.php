@@ -244,15 +244,15 @@
 
       if($seconds <= 60) {
         if($seconds == 0) {
-          return 'now';
+          return '지금 막';
         }else {
-          return $seconds.'s';
+          return $seconds.'초 전';
         }
 
       } else if($minutes <= 60) {
-        return $minutes.'m';
+        return $minutes.'분 전';
       } else if($hours <= 24) {
-        return $hours.'h';
+        return $hours.'시간 전';
       } else if($months <= 12) {
         return date('M j', $time);
       } else {
