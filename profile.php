@@ -238,7 +238,7 @@
                             <div class="t-h-c-name">
                               <span><a href="'.BASE_URL.$user->username.'">'.$user->screenName.'</a></span>
                               <span>@'.$user->username.'</span>
-                              <span>'.$getFromUser->timeAgo($retweet['postedOn']).' </span>
+                              <span>'.$getFromUser->timeAgo($tweet->postedOn).' </span>
                             </div>
                             <div class="t-h-c-dis">
                               '.$getFromTweet->getTweetLinks($tweet->retweetMsg).'
@@ -254,14 +254,14 @@
                                 <img src="'.BASE_URL.$tweet->tweetImage.'" class="imagePopup" data-tweet="'.$tweet->tweetID.'"/>	
                               </div>' : '').'
         
-                              <div class="retweet-t-s-b-inner-right">
+                              <div>
                                 <div class="t-h-c-name">
                                   <span><a href="'.BASE_URL.$tweet->username.'">'.$tweet->screenName.'</a></span>
                                   <span>@'.$tweet->username.'</span>
                                   <span>'.$getFromUser->timeAgo($tweet->postedOn).'</span>
                                 </div>
                                 <div class="retweet-t-s-b-inner-right-text">		
-                                  '.$tweet->status.'
+                                  '.$getFromTweet->getTweetLinks($tweet->status) .'
                                 </div>
                               </div>
                             </div>
@@ -301,7 +301,8 @@
         
                       <div class="t-show-footer">
                         <div class="t-s-f-right">
-                          <ul> 
+                          <ul>
+                          '.(($getFromUser->loggedIn() === true) ? '
                             <li>
                               <button><i class="fa fa-share" aria-hidden="true"></i></button>
                             </li>	
@@ -347,6 +348,16 @@
                                 </li>
                               </ul>
                             </li>' : '').'
+                            ' : 
+                            '<li>
+                              <button><i class="fa fa-share" aria-hidden="true"></i></button>
+                            </li>	
+                            <li>
+                              <button><i class="fa fa-retweet" aria-hidden="true"></i></button>
+                            </li>	
+                            <li>
+                              <button><i class="fa fa-heart" aria-hidden="true"></i></button>
+                            </li>').'
                           </ul>
                         </div>
                       </div>

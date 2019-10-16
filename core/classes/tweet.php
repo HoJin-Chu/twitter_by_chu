@@ -64,14 +64,14 @@
                         <img src="'.BASE_URL.$tweet->tweetImage.'" class="imagePopup" data-tweet="'.$tweet->tweetID.'"/>	
                       </div>' : '').'
 
-                      <div class="retweet-t-s-b-inner-right">
+                      <div>
                         <div class="t-h-c-name">
                           <span><a href="'.BASE_URL.$tweet->username.'">'.$tweet->screenName.'</a></span>
                           <span>@'.$tweet->username.'</span>
                           <span>'.$this->timeAgo($tweet->postedOn).'</span>
                         </div>
                         <div class="retweet-t-s-b-inner-right-text">		
-                          '.$tweet->status.'
+                          '.$this->getTweetLinks($tweet->status).'
                         </div>
                       </div>
                     </div>
@@ -293,7 +293,7 @@
       return $stmt->fetch(PDO::FETCH_OBJ);
     }
 
-    public function reTweet($tweet_id, $user_id, $get_id, $comment) {
+    public function retweet($tweet_id, $user_id, $get_id, $comment) {
       $sql = "UPDATE `tweets` 
               SET `retweetCount` = `retweetCount` + 1 
               WHERE `tweetID` = :tweet_id";
@@ -306,7 +306,7 @@
                     `retweetID`, `retweetBy`, `postedOn`, 
                     `likesCount`, `retweetCount`, `retweetMsg`) 
                     SELECT `status`, `tweetBy`, `tweetImage`, 
-                           `tweetID`, :user_id, CURRENT_TIMESTAMP, 
+                           `tweetID`, :user_id, `postedOn`, 
                            `likesCount`, `retweetCount`, :retweetMsg 
                     FROM `tweets` 
                     WHERE `tweetID` = :tweet_id";
