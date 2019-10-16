@@ -82,7 +82,8 @@
       $stmt->bindParam(":user_id", $user_id, PDO::PARAM_INT);
       $stmt->execute();
 
-      return $stmt->fetch(PDO::FETCH_OBJ);
+      $user = $stmt->fetch(PDO::FETCH_OBJ);
+      return $user;
     }
 
     public function logout() {
@@ -204,8 +205,8 @@
       $stmt->bindParam(":username", $username, PDO::PARAM_STR);
       $stmt->execute();
 
-      $user_id = $stmt->fetch(PDO::FETCH_OBJ);
-      return $user_id;
+      $user = $stmt->fetch(PDO::FETCH_OBJ);
+      return $user->user_id;
     }
 
     # 파일 업로딩

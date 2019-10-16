@@ -140,10 +140,46 @@
         <div class="profile-nav">
           <div class="profile-navigation">
             <ul>
-              <li><a href="#"><div class="n-head">TWEETS</div><div class="n-bottom">0</div></a></li>
-              <li><a href="#"><div class="n-head">FOLLOWINGS</div><div class="n-bottom"><?php echo $user->following; ?></div></a></li>
-              <li><a href="#"><div class="n-head">FOLLOWERS</div><div class="n-bottom"><?php echo $user->followers; ?></div></a></li>
-              <li><a href="#"><div class="n-head">LIKES</div><div class="n-bottom">0</div></a></li>
+              <li>
+                <a href="#">
+                  <div class="n-head">
+                    TWEETS
+                  </div>
+                  <div class="n-bottom">
+                    <?php $getFromTweet->countTweets($user_id); ?>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="<?php echo BASE_URL.$user->username.'/following'; ?>">
+                  <div class="n-head">
+                    FOLLOWINGS
+                  </div>
+                  <div class="n-bottom">
+                    <?php echo $user->following; ?>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="<?php echo BASE_URL.$user->username.'/followers'; ?>">
+                  <div class="n-head">
+                    FOLLOWERS
+                  </div>
+                  <div class="n-bottom">
+                    <?php echo $user->followers; ?>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <div class="n-head">
+                    LIKES
+                  </div>
+                  <div class="n-bottom">
+                    <?php $getFromTweet->countLikes($user_id); ?>
+                  </div>
+                </a>
+              </li>
             </ul>
             <div class="edit-button">
               <span>
@@ -286,9 +322,25 @@
           </div>
           <!-- in left end-->
           <div class="in-center">
-            <div class="in-center-wrap"><!-- HERE WILL BE TWEETS --></div>
+            <div class="in-center-wrap">
+              <!-- HERE WILL BE TWEETS -->
+              <?php 
+                $tweets = $getFromTweet->getUserTweets($user_id);
+
+              ?>
+            </div>
             <!-- in left wrap-->
             <div class="popupTweet"></div>
+
+            <script src="<?php echo BASE_URL; ?>assets/js/like.js"></script>
+            <script src="<?php echo BASE_URL; ?>assets/js/retweet.js"></script>
+            <script src="<?php echo BASE_URL; ?>assets/js/popuptweets.js"></script>
+            <script src="<?php echo BASE_URL; ?>assets/js/delete.js"></script>
+            <script src="<?php echo BASE_URL; ?>assets/js/comment.js"></script>
+            <script src="<?php echo BASE_URL; ?>assets/js/popupForm.js"></script>
+            <script src="<?php echo BASE_URL; ?>assets/js/search.js"></script>
+            <script src="<?php echo BASE_URL; ?>assets/js/hastag.js"></script>
+
           </div>
           <!-- in center end -->
           <div class="in-right">

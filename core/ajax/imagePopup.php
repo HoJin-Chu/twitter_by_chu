@@ -69,6 +69,7 @@
                       </button>'
                     ).'
                     </li>
+                    '.(($tweet->tweetBy === $user_id) ? '
                     <li>
                       <label for="img-popup-menu">
                         <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
@@ -76,10 +77,10 @@
                       <input id="img-popup-menu" type="checkbox"/>
                       <div class="img-popup-footer-menu">
                         <ul>
-                          <li><label class="deleteTweet" >Delete Tweet</label></li>
+                          <li><label class="deleteTweet" data-tweet="'.$tweet->tweetID.'">Delete Tweet</label></li>
                         </ul>
                       </div>
-                    </li>';
+                    </li>' : '');
                   } else {
                     echo '
                     <li>
