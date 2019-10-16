@@ -257,7 +257,7 @@
 
     public function addTrend($hashtag) {
       // 정규표현식
-      preg_match_all("/#+([a-zA-Z0-9_가-힣]+)/i", $hashtag, $matches);
+      preg_match_all("/#+([a-zA-Z0-9_]+)/i", $hashtag, $matches);
       if($matches) {
         $result = array_values($matches[1]);
       }

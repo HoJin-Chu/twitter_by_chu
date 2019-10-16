@@ -21,7 +21,7 @@
         'postedOn' => date('Y-m-d H:i:s')
       ));
       // 정규표현식
-      preg_match_all("/#+([a-zA-Z0-9_가-힣]+)/i", $status, $hashtag);
+      preg_match_all("/#+([a-zA-Z0-9_]+)/i", $status, $hashtag);
       
       if(!empty($hashtag)) {
         $getFromTweet->addTrend($status);
