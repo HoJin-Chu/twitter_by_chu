@@ -80,13 +80,23 @@
                   </div>
                 </li>
                 <li>
-                  <label for="pop-up-tweet" class="addTweetBtn">Tweet</label>
+                  <label class="addTweetBtn">Tweet</label>
                 </li>
               </ul>
             </div>
             <!-- nav right ends-->
           </div>
           <!-- nav ends -->
+
+          <div class="popupTweet">
+            <!-- retweet ajax here -->
+            <!-- popup ajax here -->
+          </div>
+
+          <script src="<?php echo BASE_URL; ?>assets/js/popupForm.js"></script>
+          <script src="<?php echo BASE_URL; ?>assets/js/search.js"></script>
+          <script src="<?php echo BASE_URL; ?>assets/js/hastag.js"></script>
+
         </div><!-- nav container ends -->
       </div><!-- header wrapper end -->
       <div class="container-wrap">

@@ -113,7 +113,7 @@
             </ul>
             <div class="edit-button">
               <span>
-                <?php echo $getFromFollow->followBtn($profileId, $user_id); ?>
+                <?php echo $getFromFollow->followBtn($profileId, $user_id, $profileData->user_id); ?>
               </span>
             </div>
           </div>

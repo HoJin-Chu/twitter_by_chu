@@ -14,6 +14,10 @@
               AND retweetID = 0 
               OR tweetBy = user_id
               AND retweetBy != :user_id
+              AND tweetBy IN(SELECT receiver 
+                             FROM follow 
+                             WHERE sender = :user_id) 
+                             ORDER BY tweetID DESC  
               LIMIT :num";
       $stmt = $this->pdo->prepare($sql);
       $stmt->bindParam(":user_id", $user_id, PDO::PARAM_INT);

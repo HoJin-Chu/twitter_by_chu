@@ -85,6 +85,11 @@
             <!-- nav right ends-->
           </div>
           <!-- nav ends -->
+
+          <script src="<?php echo BASE_URL; ?>assets/js/popupForm.js"></script>
+          <script src="<?php echo BASE_URL; ?>assets/js/search.js"></script>
+          <script src="<?php echo BASE_URL; ?>assets/js/hastag.js"></script>
+
         </div><!-- nav container ends -->
       </div><!-- header wrapper end -->
       <div class="container-wrap">

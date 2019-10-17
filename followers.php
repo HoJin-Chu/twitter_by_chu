@@ -7,16 +7,22 @@
     $user_id     = $_SESSION['user_id'];
     $user        = $getFromUser->userData($user_id);
 
-    if(!$profileData) {
-      header('Location: index.php');
+    if($getFromUser->loggedIn() === false) {
+      header('Location: '.BASE_URL.'index.php');
     }
+
+    if(!$profileData) {
+      header('Location: '.BASE_URL.'index.php');
+    }
+  } else {
+    header('Location: '.BASE_URL.'index.php');
   }
 ?>
 
 <!doctype html>
 <html>
 	<head>
-		<title>twitter</title>
+		<title>People following <?php echo $profileData->screenName.' (@'.$profileData->username.')'; ?></title>
 		<meta charset="UTF-8" />
  		<link rel="stylesheet" href="<?php echo BASE_URL;?>assets/css/style-complete.css"/>
    	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css"/>  
@@ -113,7 +119,7 @@
             </ul>
             <div class="edit-button">
               <span>
-                <?php echo $getFromFollow->followBtn($profileId, $user_id); ?>
+                <?php echo $getFromFollow->followBtn($profileId, $user_id, $profileData->user_id); ?>
               </span>
             </div>
           </div>
@@ -200,7 +206,8 @@
                     </ul>		
                   </div>
                   <!-- whoToFollow -->
-
+                  <?php $getFromFollow->whoToFollow($user_id, $user_id) ?>
+ 
                   <!-- trends -->
                 </div>
               </div>
@@ -216,10 +223,20 @@
           <!--FOLLOWING OR FOLLOWER FULL WRAPPER-->
           <div class="wrapper-following">
             <div class="wrap-follow-inner">
-                    followersList 
+              <?php $getFromFollow->followersList($profileId, $user_id, $profileData->user_id) ?>
             </div>
           <!-- wrap follo inner end-->
           </div>
+
+          <script src="<?php echo BASE_URL; ?>assets/js/follow.js"></script>
+          <script src="<?php echo BASE_URL; ?>assets/js/like.js"></script>
+          <script src="<?php echo BASE_URL; ?>assets/js/retweet.js"></script>
+          <script src="<?php echo BASE_URL; ?>assets/js/popuptweets.js"></script>
+          <script src="<?php echo BASE_URL; ?>assets/js/delete.js"></script>
+          <script src="<?php echo BASE_URL; ?>assets/js/popupForm.js"></script>
+          <script src="<?php echo BASE_URL; ?>assets/js/search.js"></script>
+          <script src="<?php echo BASE_URL; ?>assets/js/hastag.js"></script>
+
           <!--FOLLOWING OR FOLLOWER FULL WRAPPER END-->	
         </div><!--in full wrap end-->
       </div>
