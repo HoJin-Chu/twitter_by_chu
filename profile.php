@@ -113,7 +113,7 @@
             </ul>
             <div class="edit-button">
               <span>
-                <?php $getFromFollow->followBtn($profileId, $user_id); ?>
+                <?php echo $getFromFollow->followBtn($profileId, $user_id); ?>
               </span>
             </div>
           </div>
@@ -381,6 +381,7 @@
             <script src="<?php echo BASE_URL; ?>assets/js/fetch.js"></script>
             <script src="<?php echo BASE_URL; ?>assets/js/search.js"></script>
             <script src="<?php echo BASE_URL; ?>assets/js/hastag.js"></script>
+            <script src="<?php echo BASE_URL; ?>assets/js/follow.js"></script>
           </div>
           <!-- in center end -->
           <div class="in-right">
