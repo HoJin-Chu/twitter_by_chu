@@ -61,5 +61,23 @@ $(() => {
       })
     })
 
+    $(document).on('click', '.deleteMsg', function() {
+
+      const messageID = $(this).data('message')
+      $('.message-del-inner').height('100px')
+
+      $(document).on('click', '.cancel', function() {
+        $('.message-del-inner').height('0px')
+      })
+
+      $(document).on('click', '.delete', function() {
+        $.post('http://localhost/twitter/core/ajax/messages.php', {deleteMsg: messageID}, (data) => {
+          $('.message-del-inner').height('0px')
+          getMessages()
+        })
+      })
+
+    })
+
   })
 })
