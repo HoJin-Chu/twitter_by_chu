@@ -6,7 +6,7 @@ $(() => {
       sendMessage: message,
       get_id: get_id
     }, (data) => {
-      $getmessages()
+      $getMessages()
       $('#msg').val('')
     })
   })
