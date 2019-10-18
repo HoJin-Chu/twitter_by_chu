@@ -235,6 +235,8 @@
           <script src="<?php echo BASE_URL; ?>assets/js/popupForm.js"></script>
           <script src="<?php echo BASE_URL; ?>assets/js/search.js"></script>
           <script src="<?php echo BASE_URL; ?>assets/js/hastag.js"></script>
+          <script src="<?php echo BASE_URL; ?>assets/js/messages.js"></script>
+          <script src="<?php echo BASE_URL; ?>assets/js/postMessage.js"></script>
 
         </div><!--in full wrap end-->
       </div>

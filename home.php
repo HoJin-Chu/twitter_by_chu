@@ -56,7 +56,7 @@
               <ul>
                 <li><a href="#"><i class="fa fa-home" aria-hidden="true"></i>Home</a></li>
                 <li><a href="i/notifications"><i class="fa fa-bell" aria-hidden="true"></i>Notification</a></li>
-                <li><i class="fa fa-envelope" aria-hidden="true"></i>Messages</li>
+                <li id="messagePopup"><i class="fa fa-envelope" aria-hidden="true"></i>Messages</li>
               </ul>
             </div>
             <div class="nav-right">
@@ -205,6 +205,8 @@
                 <script src="assets/js/comment.js"></script>
                 <script src="assets/js/popupForm.js"></script>
                 <script src="assets/js/fetch.js"></script>
+                <script src="assets/js/messages.js"></script>
+                <script src="assets/js/postMessage.js"></script>
 
               </div><!-- in left wrap-->
             </div><!-- in center end -->

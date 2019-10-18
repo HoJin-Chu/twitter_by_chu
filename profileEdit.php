@@ -340,13 +340,15 @@
             <script src="<?php echo BASE_URL; ?>assets/js/popupForm.js"></script>
             <script src="<?php echo BASE_URL; ?>assets/js/search.js"></script>
             <script src="<?php echo BASE_URL; ?>assets/js/hastag.js"></script>
+            <script src="<?php echo BASE_URL; ?>assets/js/messages.js"></script>
+            <script src="<?php echo BASE_URL; ?>assets/js/postMessage.js"></script>
 
           </div>
           <!-- in center end -->
           <div class="in-right">
             <div class="in-right-wrap">
               <!--==WHO TO FOLLOW==-->
-                    <!-- HERE -->
+                <?php $getFromFollow->whoToFollow($user_id, $user_id) ?>
               <!--==WHO TO FOLLOW==-->
                 
               <!--==TRENDS==-->
@@ -355,6 +357,9 @@
             </div>
             <!-- in left wrap-->
           </div>
+
+          <script src="<?php echo BASE_URL; ?>assets/js/fetch.js"></script>
+
           <!-- in right end -->
         </div>
         <!--in full wrap end-->

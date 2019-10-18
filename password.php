@@ -89,6 +89,8 @@
           <script src="<?php echo BASE_URL; ?>assets/js/popupForm.js"></script>
           <script src="<?php echo BASE_URL; ?>assets/js/search.js"></script>
           <script src="<?php echo BASE_URL; ?>assets/js/hastag.js"></script>
+          <script src="<?php echo BASE_URL; ?>assets/js/delete.js"></script>
+          <script src="<?php echo BASE_URL; ?>assets/js/messages.js"></script>
 
         </div><!-- nav container ends -->
       </div><!-- header wrapper end -->
@@ -189,6 +191,10 @@
         </div>
         <!--RIGHTER ENDS-->
       </div>
+
+      <div class="popupTweet"></div>
+      <script src="<?php echo BASE_URL; ?>assets/js/postMessage.js"></script>
+      
       <!--CONTAINER_WRAP ENDS-->
     </div>
     <!-- ends wrapper -->
