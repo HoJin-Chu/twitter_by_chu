@@ -375,5 +375,70 @@
       $count = $stmt->fetch(PDO::FETCH_OBJ);
       echo $count->totalLikes;
     }
+    
+    public function trends() {
+      $sql = "SELECT *, COUNT(`tweetID`) 
+              AS `tweetsCount` FROM `trends` 
+              INNER JOIN `tweets` ON `status` 
+              LIKE CONCAT('%#', `hashtag`, '%') 
+              OR `retweetMsg` 
+              LIKE CONCAT('%#', `hashtag`, '%')
+              GROUP BY `hashtag` 
+              ORDER BY `tweetID`";
+      $stmt = $this->pdo->prepare($sql);
+      $stmt->execute();
+
+      $trends = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+      echo '
+      <div class="trend-wrapper">
+        <div class="trend-inner">
+          <div class="trend-title">
+            <h3>Trends</h3>
+          </div>';
+
+      foreach ($trends as $trend) {
+        echo '
+        <div class="trend-body">
+          <div class="trend-body-content">
+            <div class="trend-link">
+              <a href="'.BASE_URL.'hashtag/'.$trend->hashtag.'">#'.$trend->hashtag.'</a>
+            </div>
+            <div class="trend-tweets">
+              '.$trend->tweetsCount.' <span>tweets</span>
+            </div>
+          </div>
+        </div>
+        ';
+      }
+
+      echo '</div></div>';
+    }
+
+    public function getTweetsByHash($hashtag) {
+      $sql = "SELECT * FROM tweets 
+              LEFT JOIN users ON tweetBy = user_id 
+              WHERE status LIKE :hashtag 
+              OR retweetMsg LIKE :hashtag";
+      $stmt = $this->pdo->prepare($sql);
+      $stmt->bindValue(":hashtag", '%#'.$hashtag.'%', PDO::PARAM_STR);
+      $stmt->execute();
+
+      return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function getUsersByHash($hashtag) {
+      $sql = "SELECT DISTINCT * 
+              FROM `tweets` 
+              INNER JOIN `users` ON `tweetBy` = `user_id` 
+              WHERE `status` LIKE :hashtag 
+              OR `retweetMsg` 
+              LIKE :hashtag GROUP BY `user_id`";
+      $stmt = $this->pdo->prepare($sql);
+      $stmt->bindValue(":hashtag", '%#'.$hashtag.'%', PDO::PARAM_STR);
+      $stmt->execute();
+      
+      return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
   }
 ?>

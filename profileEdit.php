@@ -352,7 +352,7 @@
               <!--==WHO TO FOLLOW==-->
                 
               <!--==TRENDS==-->
-                <!-- HERE -->
+                <?php $getFromTweet->trends() ?>
               <!--==TRENDS==-->
             </div>
             <!-- in left wrap-->

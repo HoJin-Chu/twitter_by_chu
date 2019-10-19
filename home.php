@@ -138,7 +138,7 @@
                   </div><!-- info inner end -->
                 </div><!-- info box end-->
                 <!--==TRENDS==-->
-                  <!---TRENDS HERE-->
+                  <?php $getFromTweet->trends() ?>
                 <!--==TRENDS==-->
               </div><!-- in left wrap-->
             </div><!-- in left end-->

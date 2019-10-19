@@ -209,6 +209,7 @@
                   <?php $getFromFollow->whoToFollow($user_id, $user_id) ?>
  
                   <!-- trends -->
+                  <?php $getFromTweet->trends() ?>
                 </div>
               </div>
               <!--PROFILE INFO INNER END-->
