@@ -383,6 +383,7 @@
             <script src="<?php echo BASE_URL; ?>assets/js/hastag.js"></script>
             <script src="<?php echo BASE_URL; ?>assets/js/messages.js"></script>
             <script src="<?php echo BASE_URL; ?>assets/js/postMessage.js"></script>
+            <script src="<?php echo BASE_URL; ?>assets/js/notification.js"></script>
             
           </div>
           <!-- in center end -->

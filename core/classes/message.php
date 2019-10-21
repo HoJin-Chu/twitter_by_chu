@@ -86,5 +86,14 @@
       $stmt->bindParam(":user_id", $user_id, PDO::PARAM_INT);
       $stmt->execute();
     }
+
+    public function getNotificationCount($user_id) {
+      $sql = "SELECT COUNT(`messageID`) AS `totalM`, (SELECT COUNT(`ID`) FROM `notification` WHERE `notificationFor` = :user_id AND `status` = 0) AS `totalN` FROM `messages` WHERE `messageTo` = :user_id AND `status` = 0";
+      $stmt = $this->pdo->prepare($sql);
+      $stmt->bindParam(":user_id", $user_id, PDO::PARAM_INT);
+      $stmt->execute();
+
+      return $stmt->fetch(PDO::FETCH_OBJ);
+    }
   }
 ?>
