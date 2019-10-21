@@ -29,6 +29,7 @@
   if(isset($_POST['showMessage']) && !empty($_POST['showMessage'])) {
     $user_id  = $_SESSION['user_id'];
     $messages = $getFromMessage->recentMessages($user_id);
+    $getFromMessage->messageViewed($user_id);
 
     ?>
     

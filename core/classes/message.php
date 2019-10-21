@@ -95,5 +95,14 @@
 
       return $stmt->fetch(PDO::FETCH_OBJ);
     }
+
+    public function messageViewed($user_id) {
+      $sql = "UPDATE `messages` SET `status` = 1 
+              WHERE `messageTo` = :user_id AND `status` = 0";
+      $stmt = $this->pdo->prepare($sql);
+      $stmt->bindParam(":user_id", $user_id, PDO::PARAM_INT);
+      $stmt->execute();
+      
+    }
   }
 ?>

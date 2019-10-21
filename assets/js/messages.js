@@ -4,6 +4,7 @@ $(() => {
 
     $.post('http://localhost/twitter/core/ajax/messages.php', {showMessage: getMessages}, (data) => {
       $('.popupTweet').html(data)
+      $('#messages').hide()
     })
   })
 
