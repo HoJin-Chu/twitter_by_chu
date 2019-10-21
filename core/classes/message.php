@@ -104,5 +104,34 @@
       $stmt->execute();
       
     }
+
+    public function notificationViewed($user_id){
+      $sql = "UPDATE `notification` SET `status` = 1 WHERE `notificationFor` = :user_id";
+      $stmt = $this->pdo->prepare($sql);
+      $stmt->bindParam(":user_id", $user_id, PDO::PARAM_INT);
+      $stmt->execute();
+    }
+
+    public function notification($user_id) {
+      $sql = "SELECT * FROM `notification` N 
+                  LEFT JOIN `users`  U ON N. `notificationFrom` = U. `user_id`
+                  LEFT JOIN `tweets` T ON N. `target` = T. `tweetID`
+                  LEFT JOIN `likes`  L ON N. `target` = L. `likeOn`
+                  LEFT JOIN `follow` F ON N. `notificationFrom` = F. `sender` AND N. `notificationFor` = F. `receiver`
+                  WHERE N. `notificationFor` = :user_id AND N. `notificationFrom` != :user_id";
+      $stmt = $this->pdo->prepare($sql);
+      $stmt->execute(array("user_id" => $user_id));
+      
+      return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function sendNotification($get_id, $user_id, $target, $type){
+      $this->create('notification', array(
+        'notificationFor' => $get_id, 
+        'notificationFrom' => $user_id, 
+        'target' => $target, 
+        'type' => $type, 
+        'time' => date('Y-m-d H:i:s')));
+     }
   }
 ?>

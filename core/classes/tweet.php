@@ -199,6 +199,10 @@
         'likeBy' => $user_id, 
         'likeOn' => $tweet_id
       ));
+
+      if($get_id != $user_id) {
+        Message::sendNotification($get_id, $user_id, $tweet_id, 'like');
+      }
     }
 
     public function unLike($user_id, $tweet_id, $get_id) {
@@ -276,6 +280,26 @@
       }
     }
 
+    public function addMention($status, $user_id, $tweet_id) {
+      // 정규표현식
+      preg_match_all("/@+([a-zA-Z0-9_]+)/i", $status, $matches);
+      if($matches) {
+        $result = array_values($matches[1]);
+      }
+
+      $sql = "SELECT * FROM `users` WHERE `username` = :mention";
+
+      foreach ($result as $mention) {
+        if($stmt = $this->pdo->prepare($sql)) {
+          $stmt->execute(array(':mention' => $mention));
+          $data = $stmt->fetch(PDO::FETCH_OBJ);
+        }
+      }
+      if($data->user_id != $user_id) {
+        Message::sendNotification($data->user_id, $user_id, $tweet_id, 'mention');
+      }
+    }
+
     public function getTweetLinks($tweet) {
       // 정규표현식
       $tweet = preg_replace("/(https?:\/\/)([\w]+.)([\w\.]+)/", "<a href='$0' target='_blink'>$0</a>", $tweet);
@@ -319,6 +343,9 @@
       $stmt->bindParam(":retweetMsg", $comment, PDO::PARAM_STR);
       $stmt->bindParam(":tweet_id", $tweet_id, PDO::PARAM_INT);
       $stmt->execute();
+
+      Message::sendNotification($get_id, $user_id, $tweet_id, 'retweet');
+
     }
 
     public function checkRetweet($tweet_id, $user_id) {

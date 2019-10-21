@@ -19,7 +19,7 @@
       if(strlen($status) > 140) {
         $error = "The text of your tweet is too long";
       }
-      $getFromUser->create('tweets', 
+      $tweet_id = $getFromUser->create('tweets', 
         array(
         'status' => $status, 
         'tweetBy' => $user_id, 
@@ -32,6 +32,8 @@
       if(!empty($hashtag)) {
         $getFromTweet->addTrend($status);
       }
+
+      $getFromTweet->addMention($status, $user_id, $tweet_id);
       
     } else {
       $error = "Type or choose image to tweet";
