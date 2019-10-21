@@ -3,6 +3,7 @@
 
   $user_id = $_SESSION['user_id'];
   $user    = $getFromUser->userData($user_id);
+  $notify  = $getFromMessage->getNotificationCount($user_id);
 
   if($getFromUser->loggedIn() === false) {
     header('Location : '.BASE_URL.'index.php');
@@ -52,8 +53,18 @@
             <div class="nav-left">
               <ul>
                 <li><a href="<?php echo BASE_URL; ?>home.php"><i class="fa fa-home" aria-hidden="true"></i>Home</a></li>
-                <li><a href="<?php echo BASE_URL; ?>i/notifications"><i class="fa fa-bell" aria-hidden="true"></i>Notification</a></li>
-                <li id="messagePopup" rel="user_id"><i class="fa fa-envelope" aria-hidden="true"></i>Messages</li>
+                <?php if($getFromUser->loggedIn() === true) { ?>
+                  <li>
+                    <a href="<?php echo BASE_URL ?>i/notifications">
+                      <i class="fa fa-bell" aria-hidden="true"></i>Notification
+                      <span id="notification"><?php if($notify->totalN > 0) {echo '<span class="span-i">'.$notify->totalN.'</span>'; } ?></span>
+                    </a>
+                  </li>
+                  <li id="messagePopup">
+                    <i class="fa fa-envelope" aria-hidden="true"></i>Messages
+                    <span id="messages"><?php if($notify->totalM > 0) {echo '<span class="span-i">'.$notify->totalM.'</span>'; } ?></span>
+                  </li>
+                <?php } ?> 
               </ul>
             </div>
             <div class="nav-right">

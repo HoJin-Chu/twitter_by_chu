@@ -16,6 +16,12 @@
       return $var;
     }
 
+    public function preventAccess($request, $currentFile, $currently) {
+      if($request == "GET" && $currentFile == $currently) {
+        header('Location:'.BASE_URL.'index.php');
+      } 
+    }
+
     public function search($search) {
       $sql = "SELECT `user_id`, `username`, `screenName`, 
                      `profileImage`, `profileCover` 

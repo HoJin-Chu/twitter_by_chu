@@ -1,6 +1,7 @@
 <?php 
   include '../init.php';
-
+  $getFromUser->preventAccess($_SERVER['REQUEST_METHOD'], realpath(__FILE__), realpath($_SERVER['SCRIPT_FILENAME']));
+  
   if(isset($_POST['hashtag'])) {
     $hashtag = $getFromUser->checkInput($_POST['hashtag']);
     $mention = $getFromUser->checkInput($_POST['hashtag']);

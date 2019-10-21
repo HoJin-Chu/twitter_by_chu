@@ -198,8 +198,8 @@
                       <div class="noti-footer-inner">
                         <div class="noti-footer-inner-left">
                           <div class="t-h-c-name">
-                            <span><a href="<?php echo BASE_URL.$data->username; ?>"><?php echo $data->screenName; ?></a></span>
-                            <span>@<?php echo $data->username; ?></span>
+                            <span><a href="<?php echo BASE_URL.$user->username; ?>"><?php echo $user->screenName; ?></a></span>
+                            <span>@<?php echo $user->username; ?></span>
                             <span><?php echo $getFromUser->timeAgo($data->postedOn); ?></span>
                           </div>
                           <div class="noti-footer-inner-right-text">		
@@ -241,8 +241,8 @@
 
                       <div class="noti-footer-inner-left">
                         <div class="t-h-c-name">
-                          <span><a href="<?php echo BASE_URL.$data->username; ?>"><?php echo $data->screenName; ?></a></span>
-                          <span>@<?php echo $data->username; ?></span>
+                          <span><a href="<?php echo BASE_URL.$user->username; ?>"><?php echo $user->screenName; ?></a></span>
+                          <span>@<?php echo $user->username; ?></span>
                           <span><?php echo $getFromUser->timeAgo($data->postedOn); ?></span>
                         </div>
                         <div class="noti-footer-inner-right-text">		

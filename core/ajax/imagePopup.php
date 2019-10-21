@@ -1,8 +1,10 @@
 <?php 
   include '../init.php';
+  $getFromUser->preventAccess($_SERVER['REQUEST_METHOD'], realpath(__FILE__), realpath($_SERVER['SCRIPT_FILENAME']));
+  
   if(isset($_POST['showImage']) && !empty($_POST['showImage'])) {
     $tweet_id = $_POST['showImage'];
-    $user_id  = $_SESSION['user_id'];
+    $user_id  = @$_SESSION['user_id'];
     $tweet    = $getFromTweet->getPopupTweet($tweet_id);
     $likes    = $getFromTweet->likes($user_id, $tweet_id);
     $retweet  = $getFromTweet->checkRetweet($tweet_id, $user_id);

@@ -1,5 +1,7 @@
 <?php
   include '../init.php';
+  $getFromUser->preventAccess($_SERVER['REQUEST_METHOD'], realpath(__FILE__), realpath($_SERVER['SCRIPT_FILENAME']));
+  
 
   if(isset($_POST['deleteMsg']) && !empty($_POST['deleteMsg'])) {
     $user_id   = $_SESSION['user_id'];
